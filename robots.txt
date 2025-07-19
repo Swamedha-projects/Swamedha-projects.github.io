@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /profile
+Disallow: /dashboard
+Disallow: /admin/
+Disallow: /superadmin/
+Disallow: /school/
+Disallow: /student/
+Disallow: /teacher/
+Disallow: /resetpassword
+Disallow: /buycourses
+Disallow: /coursedisplay
+Disallow: /paymenthistory
+
+# Allow public pages
+Allow: /
+Allow: /about
+Allow: /courses
+Allow: /contact
+Allow: /schoolregister
+Allow: /studentregister

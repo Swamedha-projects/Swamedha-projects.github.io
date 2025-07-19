@@ -1,0 +1,45 @@
+name: Build TotalSolutions
+env:
+  CI: false
+  PA_TOKEN :  ${{ secrets.PATOKEN }}
+on: 
+  workflow_dispatch:
+    inputs:
+      reponame:
+        description: 'Give as Root'
+        required: false
+        default: 'root'
+        type: string
+          
+jobs:
+  build-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PATOKEN }}
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+      - name: Install Fish
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fish
+      - name: Set Execute Permission for build.fish
+        run: chmod +x .github/build.fish
+      - name: Build the Folders
+        run: |
+          CI=false
+          cd .github && fish ./build.fish ${{ inputs.reponame }}
+      - name: Push to Repository
+        run: |
+          git config --global user.name "MaruthiCharan2403"
+          git config --global user.email "119681925+MaruthiCharan2403@users.noreply.github.com"
+          cp -r .github/site/* .
+          rm -r .github/site
+          git status
+          git add .
+          git commit -m "Ganita Build (automated)"
+          git push

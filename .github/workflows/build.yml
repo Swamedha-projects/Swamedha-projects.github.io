@@ -1,4 +1,4 @@
-name: Build TotalSolutions
+name: Build Ganitanew
 env:
   CI: false
   PA_TOKEN :  ${{ secrets.PATOKEN }}
